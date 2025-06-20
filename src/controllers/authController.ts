@@ -34,3 +34,33 @@ export const register = async (req: Request, res: Response): Promise<void> => {
         }
     }
 }
+
+export const login = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const { email, password } = req.body as LoginInput;
+        const authResponse = await authService.login({ email, password });
+
+        AppResponse.sendSuccess({
+            res: res,
+            data: authResponse,
+            message: authResponse.message,
+            code: 200
+        });
+    } catch (error) {
+        if (error instanceof AppError) {
+            AppResponse.sendError({
+                res: res,
+                data: null,
+                message: error.message,
+                code: error.statusCode
+            });
+        } else {
+            AppResponse.sendError({
+                res: res,
+                data: null,
+                message: "Internal server error",
+                code: 500
+            });
+        }
+    }
+}
