@@ -1,3 +1,4 @@
+import "express-async-errors"; 
 import express, { NextFunction, Request, Response } from "express";
 import bodyParser from "body-parser";
 import AppError from "../utils/AppError";
@@ -5,13 +6,14 @@ import routes from "../routes";
 import morgan from "morgan";
 import swagger from "../utils/swagger";
 import cors from "cors";
+import { globalErrorHandler } from "../middlewares/errorHandler";
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// Development logging
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
@@ -23,9 +25,10 @@ app.get("/", (req, res) => {
   return res.redirect("/docs");
 });
 
-// Global Error Handler for all routes
 app.all("*", (req: Request, res: Response, next: NextFunction) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
+
+app.use(globalErrorHandler);
 
 export default app;
