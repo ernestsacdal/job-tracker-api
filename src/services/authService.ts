@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/token';
-import { RegisterInput, LoginInput, PublicUser, AuthResponse } from '../types/auth';
+import { RegisterInput, LoginInput, PublicUser, AuthResponse } from '../validators/authValidations';
 import { findUserByEmail, createUser } from '../repositories/userRepository';
 import { User } from '@prisma/client';
 import AppError from '../utils/AppError';
@@ -10,7 +10,7 @@ const toPublicUser = (user: User): PublicUser => ({
     email: user.email,
 });
 
-export const register = async ({email, password}: RegisterInput): Promise<PublicUser> => {
+export const register = async ({ email, password }: RegisterInput): Promise<PublicUser> => {
     const existingUser = await findUserByEmail(email);
     if (existingUser) {
         throw new AppError('User already exists', 400);
@@ -22,7 +22,7 @@ export const register = async ({email, password}: RegisterInput): Promise<Public
     return toPublicUser(user);
 };
 
-export const login = async ({email, password}: LoginInput): Promise<AuthResponse> => {
+export const login = async ({ email, password }: LoginInput): Promise<AuthResponse> => {
     const user = await findUserByEmail(email);
     if (!user) {
         throw new AppError('Invalid email or password', 401);

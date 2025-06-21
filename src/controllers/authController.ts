@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { RegisterInput, LoginInput } from "../types/auth";
+import { RegisterInput, LoginInput } from "../validators/authValidations";
 import * as authService from "../services/authService";
 import AppResponse from "../utils/AppResponse";
 
