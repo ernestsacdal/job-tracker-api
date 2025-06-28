@@ -29,12 +29,12 @@ export const getJobs = async (
     const page = filters.page ? parseInt(filters.page) : 1;
     const limit = filters.limit ? parseInt(filters.limit) : 10;
 
-    if (filters.status && !['APPLIED', 'INTERVIEW', 'OFFER', 'REJECTED', 'HIRED'].includes(filters.status)) {
+    if (filters.status && !['APPLIED', 'INTERVIEW', 'OFFER', 'REJECTED'].includes(filters.status)) {
         throw new AppError('Invalid status filter', 400);
     }
 
     const result = await jobRepository.getAllJobsByUserId(userId, {
-        status: filters.status as 'APPLIED' | 'INTERVIEW' | 'OFFER' | 'REJECTED' | 'HIRED' | undefined,
+        status: filters.status as 'APPLIED' | 'INTERVIEW' | 'OFFER' | 'REJECTED' | undefined,
         company: filters.company,
         search: filters.search,
         page,
@@ -111,7 +111,6 @@ export const deleteJob = async (
 //     interview: number;
 //     offer: number;
 //     rejected: number;
-//     hired: number;
 //     successRate: number;
 //     interviewRate: number;
 // }> => {
