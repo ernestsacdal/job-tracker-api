@@ -103,18 +103,25 @@ export const deleteJob = async (
     return deletedJob;
 }
 
-// export const getJobStats = async (
-//     userId: number
-// ): Promise<{
-//     total: number;
-//     applied: number;
-//     interview: number;
-//     offer: number;
-//     rejected: number;
-//     successRate: number;
-//     interviewRate: number;
-// }> => {
-//     const stats = jobRepository.getJobStats(userId);
+export const getJobStats = async (
+    userId: number
+): Promise<{
+    total: number;
+    applied: number;
+    interview: number;
+    offer: number;
+    rejected: number;
+    successRate: number;
+    interviewRate: number;
+}> => {
+    const stats = await jobRepository.getJobStats(userId);
 
-//     const success
-// }
+    const successRate = stats.total > 0 ? (stats.offer / stats.total) * 100 : 0;
+    const interviewRate = stats.total > 0 ? (stats.interview / stats.total) * 100 : 0;
+
+    return {
+        ...stats,
+        successRate: Math.round(successRate * 100) / 100,
+        interviewRate: Math.round(interviewRate * 100) / 100,
+    }
+}
