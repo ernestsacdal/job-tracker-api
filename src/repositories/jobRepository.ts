@@ -152,9 +152,8 @@ export const getJobStats = async (
     interview: number;
     offer: number;
     rejected: number;
-    hired: number;
 }> => {
-    const [total, applied, interview, offer, rejected, hired] = await Promise.all([
+    const [total, applied, interview, offer, rejected] = await Promise.all([
         prisma.jobApplication.count({
             where: {
                 userId: userId,
@@ -189,13 +188,6 @@ export const getJobStats = async (
                 deletedAt: null,
             },
         }),
-        prisma.jobApplication.count({
-            where: {
-                userId: userId,
-                status: "HIRED",
-                deletedAt: null,
-            },
-        }),
     ]);
     return {
         total,
@@ -203,6 +195,5 @@ export const getJobStats = async (
         interview,
         offer,
         rejected,
-        hired,
     };
 }
