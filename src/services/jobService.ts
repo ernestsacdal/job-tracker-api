@@ -54,7 +54,7 @@ export const getJobById = async (
     id: number,
     userId: number,
 ): Promise<JobApplication> => {
-    if (!!id || id <= 0) {
+    if (!id || id <= 0) {
         throw new AppError('Invalid job ID', 400);
     }
 
@@ -72,7 +72,7 @@ export const updateJob = async (
     userId: number,
     data: JobUpdateInput
 ): Promise<JobApplication> => {
-    if (!!id || id <= 0) {
+    if (!id || id <= 0) {
         throw new AppError('Invalid job ID', 400);
     }
 
@@ -90,7 +90,7 @@ export const deleteJob = async (
     id: number,
     userId: number
 ): Promise<JobApplication> => {
-    if (!!id || id <= 0) {
+    if (!id || id <= 0) {
         throw new AppError('Invalid job ID', 400);
     }
 
