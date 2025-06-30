@@ -2,7 +2,16 @@ import { Request, Response, NextFunction } from "express";
 import { validateToken } from "../utils/token";
 import AppResponse from "../utils/AppResponse";
 
-export  const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
+declare global {
+    namespace Express {
+        interface Request {
+            userId?: number;
+        }
+    }
+}
+
+
+export const authMiddleware = (req: Request, res: Response, next: NextFunction): void => {
     try {
         const authHeader = req.headers.authorization;
         if (!authHeader) {
@@ -34,6 +43,6 @@ export  const authMiddleware = (req: Request, res: Response, next: NextFunction)
             message: "Invalid token",
             code: 401
         });
-        
+
     }
 }
