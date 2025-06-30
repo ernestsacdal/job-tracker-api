@@ -19,7 +19,7 @@ export const jobCreateSchema = z.object({
     dateApplied: z.string().refine((date) => !isNaN(Date.parse(date)), {
         message: "Invalid date format. Please use a valid date string."
     }),
-    remindarDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
+    reminderDate: z.string().refine((date) => !isNaN(Date.parse(date)), {
         message: "Invalid reminder date format. Please use a valid date string."
     }).optional(),
 });

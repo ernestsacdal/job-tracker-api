@@ -7,6 +7,8 @@ export const createJob = async (userId: number, data: JobCreateInput): Promise<J
         data: {
             ...data,
             userId: userId,
+            dateApplied: new Date(data.dateApplied),
+            reminderDate: data.reminderDate ? new Date(data.reminderDate) : null,
         },
     });
 }
