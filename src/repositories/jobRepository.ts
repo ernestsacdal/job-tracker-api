@@ -199,3 +199,26 @@ export const getJobStats = async (
         rejected,
     };
 }
+
+export const upcomingReminders = async (
+    userId: number,
+    days: number = 7
+) => {
+    const now = new Date();
+    const future = new Date();
+    future.setDate(now.getDate() + days);
+
+    return prisma.jobApplication.findMany({
+        where: {
+            userId,
+            reminderDate: {
+                gte: now,
+                lte: future,
+            },
+            deletedAt: null,
+        },
+        orderBy: {
+            reminderDate: 'asc',
+        }
+    });
+}

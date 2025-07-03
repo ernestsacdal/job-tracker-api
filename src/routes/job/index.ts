@@ -20,4 +20,6 @@ jobRouter.delete("/:id", jobController.deleteJob);
 
 jobRouter.get("/search", jobController.getJobStats);
 
+jobRouter.get("/reminders", jobController.getUpcomingReminders);
+
 export default jobRouter;

@@ -82,3 +82,17 @@ export const getJobStats = async (req: Request, res: Response, next: NextFunctio
         code: 200
     });
 }
+
+export const getUpcomingReminders = async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.userId!;
+    const days = req.query.days ? parseInt(req.query.days as string, 10) : 7;
+    const jobs = await jobService.getUpcomingReminders(userId, days);
+
+    AppResponse.sendSuccess({
+        res: res,
+        data: jobs,
+        message: `Jobs with reminders in the next ${days} days.`,
+        code: 200,
+        totalResults: jobs.length
+    });
+}
