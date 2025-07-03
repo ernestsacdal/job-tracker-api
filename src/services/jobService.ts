@@ -125,3 +125,10 @@ export const getJobStats = async (
         interviewRate: Math.round(interviewRate * 100) / 100,
     }
 }
+
+export const getUpcomingReminders = async (
+    userId: number,
+    days: number = 7
+) => {
+    return await jobRepository.upcomingReminders(userId, days);
+}
