@@ -1,10 +1,10 @@
 import { JobStatus } from '@prisma/client';
 import { z } from 'zod';
 
-const jobStatusEnum = z.enum(["APPLIED", "INTERVIEW", "OFFER", "REJECTED"],
+const jobStatusEnum = z.enum(["APPLIED", "INTERVIEW", "OFFER", "REJECTED", "DRAFT"],
     {
         errorMap: () => ({
-            message: "Invalid job status provided. Please use one of the following: APPLIED, INTERVIEW, OFFER, REJECTED."
+            message: "Invalid job status provided. Please use one of the following: APPLIED, INTERVIEW, OFFER, REJECTED, DRAFT."
         })
     }
 );
