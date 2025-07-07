@@ -111,6 +111,7 @@ export const getJobStats = async (
     interview: number;
     offer: number;
     rejected: number;
+    draft: number;
     successRate: number;
     interviewRate: number;
 }> => {

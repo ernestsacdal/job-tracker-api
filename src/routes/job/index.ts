@@ -12,6 +12,8 @@ jobRouter.post("/create", validate(jobCreateSchema), jobController.createJob);
 
 jobRouter.get("/", jobController.getJobs);
 
+jobRouter.get("/search", jobController.getJobStats);
+
 jobRouter.get("/reminders", jobController.getUpcomingReminders);
 
 jobRouter.get("/:id", jobController.getJob);
@@ -19,7 +21,5 @@ jobRouter.get("/:id", jobController.getJob);
 jobRouter.put("/:id", validate(jobUpdateSchema), jobController.updateJob);
 
 jobRouter.delete("/:id", jobController.deleteJob);
-
-jobRouter.get("/search", jobController.getJobStats);
 
 export default jobRouter;
