@@ -33,3 +33,22 @@ Return only the letter text, no preamble or closing remarks.
     return await generate(prompt);
 }
 
+export async function generateResume(userId: number, jobId: number,
+    extraInfo?: string) {
+    const job = await jobRepository.getJobsByUserId(jobId, userId);
+    if (!job) {
+        throw new AppError("Job not found", 404);
+    }
+
+    const prompt = `Write a concise, achievement-focused resume bullet point for the following job application. Use strong action verbs, quantify impact if possible, and make it suitable for a modern tech resume.
+
+Job Title: ${job.jobTitle}
+Company: ${job.company}
+Job Description: ${job.jobDesc || "N/A"}
+${extraInfo ? `User Note: ${extraInfo}` : ""}
+
+Return only the bullet point, no preamble or closing remarks.
+    `.trim();
+
+    return await generate(prompt);
+}

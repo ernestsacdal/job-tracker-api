@@ -22,3 +22,22 @@ export const generateCoverLetter = async (
 
     );
 }
+
+export const generateResumeBlurb = async (
+    req: Request,
+    res: Response,
+    next: NextFunction) => {
+    const userId = req.userId!;
+    const jobId = parseInt(req.params.jobId, 10);
+    const { extraInfo } = req.body;
+
+    const blurb = await aiService.generateResume(userId, jobId, extraInfo);
+    AppResponse.sendSuccess(
+        {
+            res,
+            data: { blurb },
+            message: "Resume blurb generated successfully",
+            code: 200
+        }
+    );
+}

@@ -8,4 +8,6 @@ aiRouter.use(authMiddleware);
 
 aiRouter.post("/letter/:jobId", aiController.generateCoverLetter);
 
+aiRouter.post("/resume/:jobId", aiController.generateResumeBlurb);
+
 export default aiRouter;
