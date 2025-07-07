@@ -1,5 +1,6 @@
 import { generate } from "../utils/perplexity";
 import * as jobRepository from "../repositories/jobRepository";
+import * as aiRepository from "../repositories/aiRepository";
 import AppError from "../utils/AppError";
 
 export async function generateCoverLetter(
@@ -30,7 +31,10 @@ The letter should:
 Return only the letter text, no preamble or closing remarks.
   `.trim();
 
-    return await generate(prompt);
+    const letter = await generate(prompt);
+    const savedLetter = await aiRepository.coverLetter(job.id, letter)
+
+    return savedLetter;
 }
 
 export async function generateResume(userId: number, jobId: number,
@@ -50,5 +54,8 @@ ${extraInfo ? `User Note: ${extraInfo}` : ""}
 Return only the bullet point, no preamble or closing remarks.
     `.trim();
 
-    return await generate(prompt);
+    const blurb = await generate(prompt);
+    const savedBlurb = await aiRepository.resumeBlurb(job.id, blurb);
+
+    return savedBlurb;
 }
