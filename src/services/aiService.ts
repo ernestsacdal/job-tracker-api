@@ -12,5 +12,24 @@ export async function generateCoverLetter(
         throw new AppError("Job not found", 404);
     }
 
+    const prompt = `
+Write a concise, enthusiastic cover letter for the following job application.
 
+Job Title: ${job.jobTitle}
+Company: ${job.company}
+Job Description: ${job.jobDesc || "N/A"}
+${extraInfo ? `User Note: ${extraInfo}` : ""}
+
+The letter should:
+- Be no more than 250 words
+- Sound professional but human
+- Mention the company and job title
+- Reference specific skills or experience if possible
+- End with a polite call to action
+
+Return only the letter text, no preamble or closing remarks.
+  `.trim();
+
+    return await generate(prompt);
 }
+

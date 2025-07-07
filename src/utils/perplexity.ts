@@ -7,13 +7,15 @@ export async function generate(prompt: string): Promise<string> {
     const response = await axios.post(
         PERPLEXITY_API_URL,
         {
-            model: "sonar-medium-online",
+            model: "sonar",
             messages: [
                 {
                     role: "user",
                     content: prompt,
                 },
             ],
+            temperature: 0.7,
+            max_tokens: 350
         },
         {
             headers: {
@@ -22,6 +24,5 @@ export async function generate(prompt: string): Promise<string> {
             },
         }
     )
-
     return response.data.choices[0].message.content.trim();
 }
