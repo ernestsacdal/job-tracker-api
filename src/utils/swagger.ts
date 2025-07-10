@@ -49,7 +49,7 @@ const options: Options = {
       },
     ],
   },
-  apis: ["src/routers/*/*.ts"],
+  apis: ["src/routes/*/*.ts", "src/utils/swaggerSchemas.ts"], // Path to the API docs
 };
 
 const spec = swaggerJsDoc(options);
